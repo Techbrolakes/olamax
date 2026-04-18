@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useChat } from "@ai-sdk/react";
 import {
   DefaultChatTransport,
@@ -29,6 +30,9 @@ export function ConciergeView() {
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const hydratedRef = useRef(false);
+  const autoSentRef = useRef(false);
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams?.get("q") ?? null;
 
   const { messages, sendMessage, setMessages, status } = useChat<FilmConciergeUIMessage>({
     transport: new DefaultChatTransport({ api: "/api/ai/concierge" }),
@@ -52,6 +56,23 @@ export function ConciergeView() {
     hydratedRef.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Auto-send a query passed via ?q=... (from search pivot, etc.) — once per mount
+  useEffect(() => {
+    if (!hydratedRef.current || autoSentRef.current || !initialQuery) return;
+    if (busy) return;
+    autoSentRef.current = true;
+    sendMessage({ text: initialQuery });
+    // strip the query param from the URL so a refresh doesn't re-send
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState(null, "", url.toString());
+    } catch {
+      // ignore
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery]);
 
   // Persist to localStorage whenever messages settle (not mid-stream)
   useEffect(() => {

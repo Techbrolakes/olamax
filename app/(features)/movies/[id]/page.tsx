@@ -15,6 +15,7 @@ import { WatchProvidersPanel } from "@/components/shared/watch-providers-panel";
 import { WatchlistToggle } from "@/components/features/watchlist/watchlist-toggle";
 import { ReviewPanel } from "@/components/features/reviews/review-panel";
 import { WhyYoullLoveThis } from "@/components/features/recommendations/why-youll-love-this";
+import { DeepDive } from "@/components/features/recommendations/deep-dive";
 import { getFreeToWatchByTmdbId } from "@/lib/public-domain/queries";
 import { formatRuntime, formatYear } from "@/lib/utils";
 import { ROUTES } from "@/lib/constants";
@@ -268,6 +269,13 @@ export default async function MovieDetailPage({ params }: { params: Promise<Para
           />
         </section>
       ) : null}
+
+      {/* DEEP DIVE */}
+      <section className="border-t border-border/60 px-4 py-12 md:px-8">
+        <div className="mx-auto max-w-4xl">
+          <DeepDive movieId={movie.id} />
+        </div>
+      </section>
 
       {/* REVIEWS */}
       <section className="border-t border-border/60 px-4 py-12 md:px-8">

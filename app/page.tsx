@@ -5,6 +5,7 @@ import type { Genre, Movie, Paginated, TvShow } from "@/lib/tmdb/types";
 import { MovieRail } from "@/components/shared/movie-rail";
 import { TvRail } from "@/components/shared/tv-rail";
 import { TmdbImage } from "@/components/shared/tmdb-image";
+import { PickForMe } from "@/components/features/recommendations/pick-for-me";
 import { ROUTES } from "@/lib/constants";
 import { formatRating, formatYear } from "@/lib/utils";
 
@@ -88,7 +89,9 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <div className="mt-10 space-y-12">
+      <PickForMe />
+
+      <div className="mt-4 space-y-12">
         <MovieRail
           title="Trending this week"
           seeAllHref={ROUTES.movies.trending}
