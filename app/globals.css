@@ -192,3 +192,23 @@
 .skeleton-shine {
   animation: shimmer 2s infinite linear;
 }
+
+html {
+  --sidebar-w: 14rem;
+}
+html[data-sidebar-state="collapsed"] {
+  --sidebar-w: 4rem;
+}
+.sidebar-label {
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 180ms ease-out;
+}
+html[data-sidebar-state="collapsed"] .sidebar-label {
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-sidebar-state="collapsed"] .sidebar-only-expanded {
+  display: none;
+}

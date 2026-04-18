@@ -75,6 +75,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const sidebarInitScript = `(function(){try{var s=localStorage.getItem("olamax.sidebar");var state=s==="collapsed"?"collapsed":"expanded";document.documentElement.setAttribute("data-sidebar-state",state);}catch(e){document.documentElement.setAttribute("data-sidebar-state","expanded");}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
@@ -82,11 +84,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} dark`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: sidebarInitScript }} />
+      </head>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <Providers>
           <AppSidebar />
           <MobileHeader />
-          <main className="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0 md:pl-16">
+          <main className="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] transition-[padding] duration-300 ease-out md:pb-0 md:pl-[var(--sidebar-w)]">
             {children}
           </main>
           <MobileBar />

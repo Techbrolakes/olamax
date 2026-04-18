@@ -43,14 +43,7 @@ export function SidebarLink({ href, label, icon }: Props) {
       >
         {icon}
       </span>
-      <span
-        className={cn(
-          "overflow-hidden whitespace-nowrap opacity-0 transition-opacity group-hover/sidebar:opacity-100",
-          active && "font-medium"
-        )}
-      >
-        {label}
-      </span>
+      <span className={cn("sidebar-label", active && "font-medium")}>{label}</span>
     </Link>
   );
 }

@@ -1,34 +1,34 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
+  ArrowUpRight,
   Bookmark,
   Clapperboard,
   Film,
-  Flame,
   Home,
   Palette,
-  Popcorn,
-  Search,
+  PanelLeftClose,
+  PanelLeftOpen,
   Sparkles,
-  Star,
   Tv,
   Users,
-  Wand2,
 } from "lucide-react";
 import { APP_NAME, ROUTES } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { SidebarUser } from "./sidebar-user";
 import { SidebarLink } from "./sidebar-link";
+import { SidebarSearch } from "./sidebar-search";
+
+const STORAGE_KEY = "olamax.sidebar";
 
 const PRIMARY = [
   { label: "Home", href: ROUTES.home, icon: Home },
-  { label: "Search", href: ROUTES.search, icon: Search },
-  { label: "Moods", href: ROUTES.moods.index, icon: Palette },
-  { label: "Free to watch", href: ROUTES.watch.index, icon: Popcorn },
-  { label: "Trending", href: ROUTES.movies.trending, icon: Flame },
-  { label: "Popular", href: ROUTES.movies.popular, icon: Sparkles },
-  { label: "Top rated", href: ROUTES.movies.topRated, icon: Star },
-  { label: "Upcoming", href: ROUTES.movies.upcoming, icon: Clapperboard },
-  { label: "TV Shows", href: ROUTES.tv.index, icon: Tv },
+  { label: "Movies", href: ROUTES.movies.index, icon: Clapperboard },
+  { label: "TV", href: ROUTES.tv.index, icon: Tv },
   { label: "Actors", href: ROUTES.actors.index, icon: Users },
+  { label: "Moods", href: ROUTES.moods.index, icon: Palette },
 ] as const;
 
 const PERSONAL = [
@@ -37,8 +37,26 @@ const PERSONAL = [
 ] as const;
 
 export function AppSidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    setCollapsed(saved === "collapsed");
+  }, []);
+
+  function toggle() {
+    const next = !collapsed;
+    setCollapsed(next);
+    const state = next ? "collapsed" : "expanded";
+    localStorage.setItem(STORAGE_KEY, state);
+    document.documentElement.setAttribute("data-sidebar-state", state);
+  }
+
   return (
-    <aside className="group/sidebar fixed left-0 top-0 z-40 hidden h-screen w-16 flex-col border-r border-border/60 bg-surface/60 backdrop-blur-xl transition-[width] duration-300 ease-out hover:w-56 md:flex">
+    <aside
+      data-sidebar-state={collapsed ? "collapsed" : "expanded"}
+      className="group/sidebar fixed left-0 top-0 z-40 hidden h-screen w-[var(--sidebar-w)] flex-col border-r border-border/60 bg-surface/60 backdrop-blur-xl transition-[width] duration-300 ease-out md:flex"
+    >
       <div className="flex h-16 items-center px-4">
         <Link href={ROUTES.home} className="flex cursor-pointer items-center gap-3">
           <span
@@ -47,14 +65,14 @@ export function AppSidebar() {
           >
             O
           </span>
-          <span className="overflow-hidden whitespace-nowrap font-serif text-xl tracking-[-0.02em] opacity-0 transition-opacity group-hover/sidebar:opacity-100">
-            {APP_NAME}
-          </span>
+          <span className="sidebar-label font-serif text-xl tracking-[-0.02em]">{APP_NAME}</span>
         </Link>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-0.5 overflow-hidden py-3">
-        <SidebarHeading>Discover</SidebarHeading>
+      <nav className="flex flex-1 flex-col gap-3 overflow-hidden py-4">
+        <SidebarSearch />
+
+        <SidebarHeading className="mt-4">Discover</SidebarHeading>
         {PRIMARY.map((item) => {
           const Icon = item.icon;
           return (
@@ -67,7 +85,7 @@ export function AppSidebar() {
           );
         })}
 
-        <SidebarHeading className="mt-4">You</SidebarHeading>
+        <SidebarHeading className="mt-5">You</SidebarHeading>
         {PERSONAL.map((item) => {
           const Icon = item.icon;
           return (
@@ -81,6 +99,28 @@ export function AppSidebar() {
         })}
       </nav>
 
+      <div className="px-2 pb-2">
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className={cn(
+            "flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-md px-2 py-2 text-sm",
+            "text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+          )}
+        >
+          <span className="flex h-5 w-5 flex-none items-center justify-center">
+            {collapsed ? (
+              <PanelLeftOpen className="h-5 w-5" />
+            ) : (
+              <PanelLeftClose className="h-5 w-5" />
+            )}
+          </span>
+          <span className="sidebar-label">Collapse</span>
+        </button>
+      </div>
+
       <SidebarAskAi />
       <SidebarUser />
     </aside>
@@ -89,23 +129,32 @@ export function AppSidebar() {
 
 function SidebarAskAi() {
   return (
-    <div className="px-2 pb-2">
+    <div className="px-2 pb-3">
       <Link
         href={ROUTES.concierge}
         title="Ask OlaMax AI"
-        className="group/ai flex cursor-pointer items-center gap-3 overflow-hidden rounded-full bg-primary px-2 py-2 text-primary-foreground shadow-[0_4px_14px_-4px_hsl(var(--primary)/0.6)] transition-all hover:shadow-[0_6px_20px_-4px_hsl(var(--primary)/0.8)]"
+        className="group/ai relative flex cursor-pointer items-center gap-3 overflow-hidden rounded-lg border border-border/60 bg-gradient-to-br from-muted/60 via-card/40 to-background/20 px-3 py-2.5 shadow-[0_1px_0_0_hsl(var(--foreground)/0.04)_inset,0_6px_20px_-12px_rgba(0,0,0,0.6)] transition-all hover:border-border hover:from-muted/80 hover:via-card/60"
       >
-        <span className="grid h-8 w-8 flex-none place-items-center rounded-full bg-background/15 ring-1 ring-white/25">
-          <Wand2 className="h-[15px] w-[15px]" strokeWidth={2.25} />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent"
+        />
+        <span className="relative grid h-7 w-7 flex-none place-items-center rounded-md bg-background/70 ring-1 ring-inset ring-border/60">
+          <Sparkles
+            className="h-[13px] w-[13px] text-foreground transition-transform duration-300 group-hover/ai:-rotate-6 group-hover/ai:scale-110"
+            strokeWidth={2}
+          />
         </span>
-        <span className="flex flex-col items-start leading-none opacity-0 transition-opacity duration-200 group-hover/sidebar:opacity-100">
-          <span className="font-mono text-[9px] font-semibold tracking-[0.22em] uppercase opacity-75">
-            Ask
-          </span>
-          <span className="mt-0.5 whitespace-nowrap font-sans text-sm font-semibold tracking-tight">
-            OlaMax AI
+        <span className="sidebar-label flex min-w-0 flex-1 flex-col leading-tight">
+          <span className="meta-label text-[9px] opacity-70">OlaMax AI</span>
+          <span className="mt-0.5 truncate font-serif text-[15px] italic tracking-tight text-foreground">
+            Describe a vibe…
           </span>
         </span>
+        <ArrowUpRight
+          className="sidebar-label h-4 w-4 flex-none text-muted-foreground transition-all duration-300 group-hover/ai:translate-x-0.5 group-hover/ai:-translate-y-0.5 group-hover/ai:text-foreground"
+          strokeWidth={1.75}
+        />
       </Link>
     </div>
   );
@@ -118,12 +167,5 @@ function SidebarHeading({
   className?: string;
   children: React.ReactNode;
 }) {
-  return (
-    <p
-      className={`meta-label px-4 py-2 opacity-0 transition-opacity group-hover/sidebar:opacity-100 ${className ?? ""}`}
-    >
-      {children}
-    </p>
-  );
+  return <p className={cn("meta-label sidebar-label px-4 py-2", className)}>{children}</p>;
 }
-

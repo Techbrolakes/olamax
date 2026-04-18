@@ -9,8 +9,14 @@ const ALLOWED = ["image/png", "image/jpeg", "image/webp"];
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
+  let user;
   try {
-    const user = await requireUser();
+    user = await requireUser();
+  } catch {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
     const form = await req.formData();
     const file = form.get("file");
 
@@ -30,7 +36,9 @@ export async function POST(req: Request) {
     if (current?.avatarUrl) await deleteBlob(current.avatarUrl);
 
     return NextResponse.json({ data: row });
-  } catch {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  } catch (err) {
+    console.error("[avatar-upload]", err);
+    const message = err instanceof Error ? err.message : "Upload failed";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
