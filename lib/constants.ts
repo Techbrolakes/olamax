@@ -36,6 +36,10 @@ export const ROUTES = {
   watchlist: "/watchlist",
   reviews: "/reviews",
   concierge: "/concierge",
+  moods: {
+    index: "/mood",
+    detail: (slug: string) => `/mood/${slug}`,
+  },
   auth: {
     signIn: "/sign-in",
     signUp: "/sign-up",

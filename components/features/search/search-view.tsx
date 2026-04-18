@@ -1,6 +1,7 @@
 "use client";
 
-import { Search as SearchIcon } from "lucide-react";
+import Link from "next/link";
+import { Search as SearchIcon, Wand2 } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useSearch } from "./use-search";
@@ -8,6 +9,7 @@ import { MovieCard } from "@/components/shared/movie-card";
 import { TvCard } from "@/components/shared/tv-card";
 import { ActorCard } from "@/components/shared/actor-card";
 import { PageHeader } from "@/components/shared/page-header";
+import { ROUTES } from "@/lib/constants";
 
 export function SearchView({ initial }: { initial: Promise<{ q?: string }> }) {
   const searchParams = use(initial);
@@ -34,7 +36,7 @@ export function SearchView({ initial }: { initial: Promise<{ q?: string }> }) {
         description="Films, shows, and the people who make them."
       />
 
-      <div className="relative mb-12">
+      <div className="relative mb-3">
         <SearchIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           type="search"
@@ -44,6 +46,29 @@ export function SearchView({ initial }: { initial: Promise<{ q?: string }> }) {
           placeholder="Search for a film, a show, an actor…"
           className="w-full rounded-full border border-border/60 bg-card py-4 pl-12 pr-6 text-lg text-foreground outline-none transition-colors focus:border-primary"
         />
+      </div>
+
+      <div className="mb-10 flex items-center justify-between">
+        <p className="meta-label text-muted-foreground">
+          Exact titles, cast, and keywords.
+        </p>
+        {debounced.trim().length > 0 ? (
+          <Link
+            href={`${ROUTES.concierge}?q=${encodeURIComponent(debounced.trim())}`}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3.5 py-1.5 text-[12px] font-medium text-primary transition-colors hover:border-primary/70 hover:bg-primary/15"
+          >
+            <Wand2 className="h-3.5 w-3.5" />
+            Describe a vibe instead — ask OlaMax AI →
+          </Link>
+        ) : (
+          <Link
+            href={ROUTES.concierge}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 px-3.5 py-1.5 text-[12px] text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+          >
+            <Wand2 className="h-3.5 w-3.5" />
+            Looking for a vibe? Ask OlaMax AI
+          </Link>
+        )}
       </div>
 
       {!debounced ? (

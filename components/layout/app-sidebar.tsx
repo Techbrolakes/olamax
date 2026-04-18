@@ -5,6 +5,7 @@ import {
   Film,
   Flame,
   Home,
+  Palette,
   Popcorn,
   Search,
   Sparkles,
@@ -20,6 +21,7 @@ import { SidebarLink } from "./sidebar-link";
 const PRIMARY = [
   { label: "Home", href: ROUTES.home, icon: Home },
   { label: "Search", href: ROUTES.search, icon: Search },
+  { label: "Moods", href: ROUTES.moods.index, icon: Palette },
   { label: "Free to watch", href: ROUTES.watch.index, icon: Popcorn },
   { label: "Trending", href: ROUTES.movies.trending, icon: Flame },
   { label: "Popular", href: ROUTES.movies.popular, icon: Sparkles },
