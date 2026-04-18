@@ -1,59 +1,21 @@
-import localFont from 'next/font/local';
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
-// Define the Satoshi font with all its variants
-export const satoshi = localFont({
-  src: [
-    {
-      path: '../public/fonts/Satoshi-Light.otf',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Satoshi-LightItalic.otf',
-      weight: '300',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/Satoshi-Regular.otf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Satoshi-Italic.otf',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/Satoshi-Medium.otf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Satoshi-MediumItalic.otf',
-      weight: '500',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/Satoshi-Bold.otf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Satoshi-BoldItalic.otf',
-      weight: '700',
-      style: 'italic',
-    },
-    {
-      path: '../public/fonts/Satoshi-Black.otf',
-      weight: '900',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/Satoshi-BlackItalic.otf',
-      weight: '900',
-      style: 'italic',
-    },
-  ],
-  variable: '--font-satoshi',
-  display: 'swap',
+export const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
 });

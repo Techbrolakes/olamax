@@ -1,62 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background (no rounded corners, iOS applies them) -->
-  <rect width="180" height="180" fill="url(#bg)"/>
-  
-  <!-- Glow layer -->
-  <rect x="28" y="28" width="124" height="124" rx="21" fill="url(#glowGrad)" opacity="0.3" filter="url(#glow)"/>
-  
-  <!-- Container -->
-  <rect x="35" y="35" width="110" height="110" rx="18" fill="#0F0F0F" opacity="0.9"/>
-  
-  <!-- Letter "O" -->
-  <circle cx="67" cy="90" r="19.5" stroke="url(#letter)" stroke-width="6.3" fill="none" stroke-linecap="round"/>
-  <circle cx="67" cy="90" r="19.5" stroke="url(#glow2)" stroke-width="1.5" fill="none" opacity="0.5"/>
-  
-  <!-- Letter "M" -->
-  <g stroke="url(#letter)" stroke-width="6.3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M95 74 L95 106"/>
-    <path d="M95 74 L105.5 88.5"/>
-    <path d="M105.5 88.5 L116 74"/>
-    <path d="M116 74 L116 106"/>
-  </g>
-  <g stroke="url(#glow2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
-    <path d="M95 74 L95 106"/>
-    <path d="M95 74 L105.5 88.5"/>
-    <path d="M105.5 88.5 L116 74"/>
-    <path d="M116 74 L116 106"/>
-  </g>
-  
-  <!-- Play button -->
-  <path d="M126.5 85 L126.5 95 L135 90 Z" fill="url(#play)"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="180" y2="180">
-      <stop offset="0" stop-color="#8B5CF6"/>
-      <stop offset="0.33" stop-color="#7C3AED"/>
-      <stop offset="0.66" stop-color="#6366F1"/>
-      <stop offset="1" stop-color="#3B82F6"/>
-    </linearGradient>
-    <radialGradient id="glowGrad" cx="50%" cy="50%">
-      <stop offset="0" stop-color="#F472B6"/>
-      <stop offset="1" stop-color="#7C3AED"/>
+    <radialGradient id="glow" cx="50%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#E35A45" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#0A0A0A" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="letter" x1="53" y1="74" x2="126.5" y2="106">
-      <stop offset="0" stop-color="#F9A8D4"/>
-      <stop offset="0.3" stop-color="#F472B6"/>
-      <stop offset="0.6" stop-color="#EC4899"/>
-      <stop offset="1" stop-color="#FCD34D"/>
-    </linearGradient>
-    <linearGradient id="glow2" x1="53" y1="74" x2="126.5" y2="106">
-      <stop offset="0" stop-color="#FFF" opacity="0.8"/>
-      <stop offset="1" stop-color="#FCD34D" opacity="0.8"/>
-    </linearGradient>
-    <linearGradient id="play" x1="126.5" y1="85" x2="135" y2="95">
-      <stop offset="0" stop-color="#F9A8D4"/>
-      <stop offset="1" stop-color="#F472B6"/>
-    </linearGradient>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="8"/>
-    </filter>
   </defs>
+  <rect width="180" height="180" rx="40" fill="#0A0A0A"/>
+  <rect width="180" height="180" rx="40" fill="url(#glow)"/>
+  <text
+    x="50%"
+    y="50%"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="'Instrument Serif', 'Times New Roman', Georgia, serif"
+    font-style="italic"
+    font-size="130"
+    fill="#E35A45"
+    letter-spacing="-5"
+  >O</text>
+  <text
+    x="50%"
+    y="86%"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="'Geist Mono', ui-monospace, monospace"
+    font-size="10"
+    fill="#666666"
+    letter-spacing="3"
+  >OLAMAX</text>
 </svg>

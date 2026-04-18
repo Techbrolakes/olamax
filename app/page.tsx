@@ -1,187 +1,132 @@
-import { Suspense } from "react";
-import { moviesAPI } from "./lib/api";
-import { HeroSkeleton } from "../components/skeletons/HeroSkeleton";
-import { CarouselSkeleton } from "../components/skeletons/CarouselSkeleton";
-import { MovieCarousel } from "@/components/movies";
-import { HeroCarousel } from "@/components/common/HeroCarousel";
+import Link from "next/link";
+import { ArrowUpRight, Play } from "lucide-react";
+import { movies as moviesApi, tv as tvApi } from "@/lib/tmdb";
+import type { Genre, Movie, Paginated, TvShow } from "@/lib/tmdb/types";
+import { MovieRail } from "@/components/shared/movie-rail";
+import { TvRail } from "@/components/shared/tv-rail";
+import { TmdbImage } from "@/components/shared/tmdb-image";
+import { ROUTES } from "@/lib/constants";
+import { formatRating, formatYear } from "@/lib/utils";
 
-async function getMovies() {
+export const revalidate = 3600;
+
+async function safe<T>(p: Promise<T>, fallback: T): Promise<T> {
   try {
-    // Fetch different movie categories
-    const [trendingData, popularData, topRatedData, upcomingData, genresData] =
-      await Promise.all([
-        moviesAPI.getTrending("week"),
-        moviesAPI.getPopular(),
-        moviesAPI.getTopRated(),
-        moviesAPI.getUpcoming(),
-        moviesAPI.getGenres(),
-      ]);
-
-    // Select a diverse set of popular genres (12 genres instead of 5)
-    // These are some of the most popular genres on TMDB
-    const popularGenreIds = [
-      28, // Action
-      12, // Adventure
-      16, // Animation
-      35, // Comedy
-      80, // Crime
-      18, // Drama
-      14, // Fantasy
-      27, // Horror
-      10749, // Romance
-      878, // Science Fiction
-      53, // Thriller
-      10752, // War
-    ];
-
-    // Filter genres to include only the popular ones and ensure they exist in the API response
-    const selectedGenres = genresData.genres
-      .filter((genre) => popularGenreIds.includes(genre.id))
-      // Sort them in the same order as popularGenreIds
-      .sort((a, b) => {
-        return popularGenreIds.indexOf(a.id) - popularGenreIds.indexOf(b.id);
-      });
-
-    // Get movies for different genres
-    const genrePromises = selectedGenres.map(async (genre) => {
-      const data = await moviesAPI.getMoviesByGenre(genre.id);
-      return {
-        id: genre.id,
-        name: genre.name,
-        movies: data.results,
-      };
-    });
-
-    const genreMovies = await Promise.all(genrePromises);
-
-    return {
-      trending: trendingData.results,
-      popular: popularData.results,
-      topRated: topRatedData.results,
-      upcoming: upcomingData.results,
-      genres: genresData.genres,
-      genreMovies: genreMovies,
-      featuredMovie: trendingData.results[0], // Use the first trending movie as featured
-    };
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-    return {
-      trending: [],
-      popular: [],
-      topRated: [],
-      upcoming: [],
-      genres: [],
-      genreMovies: [],
-      featuredMovie: null,
-    };
+    return await p;
+  } catch {
+    return fallback;
   }
 }
 
-async function TrendingMoviesCarousel() {
-  const { trending } = await getMovies();
-  return (
-    <MovieCarousel
-      title="Trending Now"
-      movies={trending}
-      viewAllHref="/movies/trending"
-    />
+export default async function HomePage() {
+  const emptyPaginated: Paginated<Movie> = { page: 1, results: [], total_pages: 0, total_results: 0 };
+  const emptyTvPaginated: Paginated<TvShow> = { page: 1, results: [], total_pages: 0, total_results: 0 };
+
+  const [trending, popular, topRated, upcoming, nowPlaying, trendingTv, genresRes] = await Promise.all([
+    safe(moviesApi.trending("week"), emptyPaginated),
+    safe(moviesApi.popular(), emptyPaginated),
+    safe(moviesApi.topRated(), emptyPaginated),
+    safe(moviesApi.upcoming(), emptyPaginated),
+    safe(moviesApi.nowPlaying(), emptyPaginated),
+    safe(tvApi.trending("week"), emptyTvPaginated),
+    safe(moviesApi.genres(), { genres: [] as Genre[] }),
+  ]);
+
+  const genres = genresRes.genres;
+
+  const genreData = await Promise.all(
+    genres.map(async (g) => ({ genre: g, data: await safe(moviesApi.byGenre(g.id), emptyPaginated) }))
   );
-}
 
-async function PopularMoviesCarousel() {
-  const { popular } = await getMovies();
-  return (
-    <MovieCarousel
-      title="Popular Movies"
-      movies={popular}
-      viewAllHref="/movies/popular"
-    />
-  );
-}
-
-async function TopRatedMoviesCarousel() {
-  const { topRated } = await getMovies();
-  return (
-    <MovieCarousel
-      title="Top Rated"
-      movies={topRated}
-      viewAllHref="/movies/top-rated"
-    />
-  );
-}
-
-async function UpcomingMoviesCarousel() {
-  const { upcoming } = await getMovies();
-  return (
-    <MovieCarousel
-      title="Coming Soon"
-      movies={upcoming}
-      viewAllHref="/movies/upcoming"
-    />
-  );
-}
-
-async function GenreCarousels() {
-  const { genreMovies } = await getMovies();
+  const hero = trending.results[0];
 
   return (
-    <>
-      {genreMovies.map((genre) => (
-        <MovieCarousel
-          key={genre.id}
-          title={genre.name}
-          movies={genre.movies}
-          viewAllHref={`/genre/${genre.id}`}
-        />
-      ))}
-    </>
-  );
-}
+    <div className="pb-16">
+      {hero ? (
+        <section className="relative isolate h-[78vh] min-h-[520px] overflow-hidden">
+          <TmdbImage
+            kind="backdrop"
+            path={hero.backdrop_path}
+            alt=""
+            size="original"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
-async function FeaturedMovie() {
-  const { trending } = await getMovies();
-
-  if (!trending || trending.length === 0) {
-    return null;
-  }
-
-  return <HeroCarousel movies={trending} />;
-}
-
-export default function Home() {
-  return (
-    <div className="pb-6">
-      {/* Hero Section with Featured Movie */}
-      <Suspense fallback={<HeroSkeleton />}>
-        <FeaturedMovie />
-      </Suspense>
-
-      {/* Movie Carousels - Adaptive positioning with smaller negative margin on mobile */}
-      <div className="relative z-10">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-screen-3xl mx-auto">
-            <Suspense fallback={<CarouselSkeleton />}>
-              <TrendingMoviesCarousel />
-            </Suspense>
-
-            <Suspense fallback={<CarouselSkeleton />}>
-              <PopularMoviesCarousel />
-            </Suspense>
-
-            <Suspense fallback={<CarouselSkeleton />}>
-              <TopRatedMoviesCarousel />
-            </Suspense>
-
-            <Suspense fallback={<CarouselSkeleton />}>
-              <UpcomingMoviesCarousel />
-            </Suspense>
-
-            {/* Genre-specific Carousels */}
-            <Suspense fallback={<CarouselSkeleton />}>
-              <GenreCarousels />
-            </Suspense>
+          <div className="relative flex h-full flex-col justify-end gap-4 px-4 pb-16 md:max-w-2xl md:px-10">
+            <p className="meta-label">Featured · Trending this week</p>
+            <h1 className="font-serif text-5xl leading-[0.95] tracking-[-0.02em] md:text-7xl">
+              <span className="italic">{hero.title}</span>
+            </h1>
+            <div className="flex items-center gap-4">
+              <span className="meta-label">{formatYear(hero.release_date)}</span>
+              <span className="meta-label">★ {formatRating(hero.vote_average)}</span>
+            </div>
+            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+              {hero.overview}
+            </p>
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link
+                href={ROUTES.movies.detail(hero.id)}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90"
+              >
+                <Play className="h-4 w-4 fill-background" />
+                Details
+              </Link>
+              <Link
+                href={ROUTES.movies.trending}
+                className="meta-label inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-5 py-2.5 hover:border-border hover:text-foreground"
+              >
+                More like this <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
+      ) : null}
+
+      <div className="mt-10 space-y-12">
+        <MovieRail
+          title="Trending this week"
+          seeAllHref={ROUTES.movies.trending}
+          movies={trending.results}
+          priority
+        />
+        <TvRail
+          title="Trending TV shows"
+          seeAllHref={ROUTES.tv.trending}
+          shows={trendingTv.results}
+        />
+        <MovieRail title="Now playing" movies={nowPlaying.results} />
+        <MovieRail
+          title="Popular"
+          seeAllHref={ROUTES.movies.popular}
+          movies={popular.results}
+        />
+        <MovieRail
+          title="Top rated"
+          seeAllHref={ROUTES.movies.topRated}
+          movies={topRated.results}
+        />
+        <MovieRail
+          title="Upcoming"
+          seeAllHref={ROUTES.movies.upcoming}
+          movies={upcoming.results}
+        />
+
+        {genreData.map(({ genre, data }) =>
+          data.results.length ? (
+            <MovieRail
+              key={genre.id}
+              title={genre.name}
+              seeAllHref={ROUTES.genre(genre.id)}
+              movies={data.results}
+            />
+          ) : null
+        )}
       </div>
     </div>
   );
