@@ -23,6 +23,8 @@ const emptyPaginated: Paginated<Movie> = {
   total_results: 0,
 };
 
+const RAIL_LIMIT = 10;
+
 async function GenreRail({ id, name }: { id: number; name: string }) {
   const data = await safe(moviesApi.byGenre(id), emptyPaginated);
   if (!data.results.length) return null;
@@ -30,7 +32,7 @@ async function GenreRail({ id, name }: { id: number; name: string }) {
     <MovieRail
       title={name}
       seeAllHref={ROUTES.genre(id)}
-      movies={data.results}
+      movies={data.results.slice(0, RAIL_LIMIT)}
     />
   );
 }

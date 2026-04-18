@@ -5,6 +5,10 @@ import { TvRail } from "@/components/shared/tv-rail";
 import { ROUTES } from "@/lib/constants";
 import { safe } from "./safe";
 
+// Per-rail cap: TMDB returns 20; we only need enough to fill the horizontal
+// rail before the user scrolls. Halves image requests and RSC payload size.
+const RAIL_LIMIT = 10;
+
 const emptyMovies: Paginated<Movie> = {
   page: 1,
   results: [],
@@ -24,7 +28,7 @@ export async function TrendingMoviesRail() {
     <MovieRail
       title="Trending this week"
       seeAllHref={ROUTES.movies.trending}
-      movies={data.results}
+      movies={data.results.slice(0, RAIL_LIMIT)}
       priority
     />
   );
@@ -36,14 +40,16 @@ export async function TrendingTvRail() {
     <TvRail
       title="Trending TV shows"
       seeAllHref={ROUTES.tv.trending}
-      shows={data.results}
+      shows={data.results.slice(0, RAIL_LIMIT)}
     />
   );
 }
 
 export async function NowPlayingRail() {
   const data = await safe(moviesApi.nowPlaying(), emptyMovies);
-  return <MovieRail title="Now playing" movies={data.results} />;
+  return (
+    <MovieRail title="Now playing" movies={data.results.slice(0, RAIL_LIMIT)} />
+  );
 }
 
 export async function PopularMoviesRail() {
@@ -52,7 +58,7 @@ export async function PopularMoviesRail() {
     <MovieRail
       title="Popular"
       seeAllHref={ROUTES.movies.popular}
-      movies={data.results}
+      movies={data.results.slice(0, RAIL_LIMIT)}
     />
   );
 }
@@ -63,7 +69,7 @@ export async function TopRatedRail() {
     <MovieRail
       title="Top rated"
       seeAllHref={ROUTES.movies.topRated}
-      movies={data.results}
+      movies={data.results.slice(0, RAIL_LIMIT)}
     />
   );
 }
@@ -74,7 +80,7 @@ export async function UpcomingRail() {
     <MovieRail
       title="Upcoming"
       seeAllHref={ROUTES.movies.upcoming}
-      movies={data.results}
+      movies={data.results.slice(0, RAIL_LIMIT)}
     />
   );
 }
