@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
+import { CaretLeftIcon } from "@phosphor-icons/react/ssr";
 import { tv as tvApi } from "@/lib/tmdb";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import { EpisodeRow } from "@/components/shared/episode-row";
@@ -44,7 +44,7 @@ export default async function SeasonPage({ params }: { params: Promise<Params> }
         href={ROUTES.tv.detail(tvId)}
         className="meta-label inline-flex cursor-pointer items-center gap-1 hover:text-foreground"
       >
-        <ChevronLeft className="h-3.5 w-3.5" /> {show.name}
+        <CaretLeftIcon className="h-3.5 w-3.5" /> {show.name}
       </Link>
 
       <div className="mt-6 grid gap-8 md:grid-cols-[200px_1fr]">

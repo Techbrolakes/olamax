@@ -3,7 +3,7 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import Image from "next/image";
 import { useState } from "react";
-import { Play } from "lucide-react";
+import { PlayIcon } from "@phosphor-icons/react";
 import type { Image as TmdbImageType, Video } from "@/lib/tmdb/types";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import { TrailerButton } from "./trailer-hero";
@@ -158,7 +158,7 @@ function VideoCard({ video, title }: { video: Video; title: string }) {
 export function PlayOverlay() {
   return (
     <span className="grid h-12 w-12 place-items-center rounded-full bg-foreground text-background">
-      <Play className="h-5 w-5 fill-background" />
+      <PlayIcon className="h-5 w-5 text-background" weight="fill" />
     </span>
   );
 }

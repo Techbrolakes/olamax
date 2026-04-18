@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRightIcon, PlayIcon } from "@phosphor-icons/react/ssr";
 import { movies as moviesApi } from "@/lib/tmdb";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import { MovieRail } from "@/components/shared/movie-rail";
@@ -189,7 +189,7 @@ export default async function MovieDetailPage({ params }: { params: Promise<Para
                   href={ROUTES.watch.detail(freeFilm.slug)}
                   className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  <Play className="h-4 w-4 fill-primary-foreground" />
+                  <PlayIcon className="h-4 w-4" weight="fill" />
                   Watch free
                 </Link>
               ) : null}
@@ -202,7 +202,7 @@ export default async function MovieDetailPage({ params }: { params: Promise<Para
                   rel="noreferrer"
                   className="meta-label inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-4 py-2.5 text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
                 >
-                  Official <ArrowUpRight className="h-3.5 w-3.5" />
+                  Official <ArrowUpRightIcon className="h-3.5 w-3.5" />
                 </a>
               ) : null}
               {movie.imdb_id ? (
@@ -212,7 +212,7 @@ export default async function MovieDetailPage({ params }: { params: Promise<Para
                   rel="noreferrer"
                   className="meta-label inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-4 py-2.5 text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
                 >
-                  IMDb <ArrowUpRight className="h-3.5 w-3.5" />
+                  IMDb <ArrowUpRightIcon className="h-3.5 w-3.5" />
                 </a>
               ) : null}
             </div>

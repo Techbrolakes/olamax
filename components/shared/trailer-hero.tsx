@@ -1,6 +1,6 @@
 "use client";
 
-import { Play, X } from "lucide-react";
+import { PlayIcon, XIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,7 @@ export function TrailerButton({ videoKey, title, label = "Play trailer", classNa
           className
         )}
       >
-        <Play className={cn("fill-background", iconOnly ? "h-5 w-5" : "h-4 w-4")} />
+        <PlayIcon className={cn(iconOnly ? "h-5 w-5" : "h-4 w-4")} weight="fill" />
         {iconOnly ? null : label}
       </button>
 
@@ -47,7 +47,7 @@ export function TrailerButton({ videoKey, title, label = "Play trailer", classNa
               aria-label="Close"
               className="absolute -top-12 right-0 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border/60 text-foreground hover:border-border"
             >
-              <X className="h-4 w-4" />
+              <XIcon className="h-4 w-4" />
             </button>
             <div className="relative aspect-video overflow-hidden rounded-md bg-black ring-1 ring-border">
               <iframe

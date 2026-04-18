@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -88,7 +88,7 @@ export function SignInForm({ configured }: Props) {
         disabled={form.formState.isSubmitting}
         className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {form.formState.isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        {form.formState.isSubmitting ? <CircleNotchIcon className="h-4 w-4 animate-spin" /> : null}
         Sign in
       </button>
 

@@ -2,16 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  AlertTriangle,
-  Loader2,
-  Maximize,
-  Minimize,
-  Pause,
-  Play,
-  RotateCcw,
-  Volume2,
-  VolumeX,
-} from "lucide-react";
+  ArrowCounterClockwiseIcon,
+  ArrowsInIcon,
+  ArrowsOutIcon,
+  CircleNotchIcon,
+  PauseIcon,
+  PlayIcon,
+  SpeakerHighIcon,
+  SpeakerSlashIcon,
+  WarningIcon,
+} from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -185,21 +185,21 @@ export function VideoPlayer({ src, type, poster, title }: Props) {
 
       {loading && !error ? (
         <div className="pointer-events-none absolute inset-0 grid place-items-center">
-          <Loader2 className="h-8 w-8 animate-spin text-foreground/80" />
+          <CircleNotchIcon className="h-8 w-8 animate-spin text-foreground/80" />
         </div>
       ) : null}
 
       {error ? (
         <div className="absolute inset-0 grid place-items-center bg-black/70 px-6 text-center">
           <div className="max-w-sm space-y-3">
-            <AlertTriangle className="mx-auto h-7 w-7 text-foreground/80" />
+            <WarningIcon className="mx-auto h-7 w-7 text-foreground/80" />
             <p className="font-serif text-lg leading-snug">{error}</p>
             <button
               type="button"
               onClick={retry}
               className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 px-4 py-1.5 text-sm transition-colors hover:border-foreground"
             >
-              <RotateCcw className="h-3.5 w-3.5" /> Try again
+              <ArrowCounterClockwiseIcon className="h-3.5 w-3.5" /> Try again
             </button>
           </div>
         </div>
@@ -213,7 +213,7 @@ export function VideoPlayer({ src, type, poster, title }: Props) {
           className="absolute inset-0 grid cursor-pointer place-items-center bg-black/30 transition-colors hover:bg-black/10"
         >
           <span className="grid h-20 w-20 place-items-center rounded-full bg-foreground text-background">
-            <Play className="h-8 w-8 fill-background" />
+            <PlayIcon className="h-8 w-8 text-background" weight="fill" />
           </span>
         </button>
       ) : null}
@@ -240,7 +240,7 @@ export function VideoPlayer({ src, type, poster, title }: Props) {
             aria-label={playing ? "Pause" : "Play"}
             className="cursor-pointer text-white transition-opacity hover:opacity-80"
           >
-            {playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 fill-current" />}
+            {playing ? <PauseIcon className="h-5 w-5" weight="fill" /> : <PlayIcon className="h-5 w-5" weight="fill" />}
           </button>
 
           <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ export function VideoPlayer({ src, type, poster, title }: Props) {
               aria-label={muted ? "Unmute" : "Mute"}
               className="cursor-pointer text-white transition-opacity hover:opacity-80"
             >
-              {muted || volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+              {muted || volume === 0 ? <SpeakerSlashIcon className="h-5 w-5" /> : <SpeakerHighIcon className="h-5 w-5" />}
             </button>
             <input
               type="range"
@@ -273,7 +273,7 @@ export function VideoPlayer({ src, type, poster, title }: Props) {
             aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
             className="ml-auto cursor-pointer text-white transition-opacity hover:opacity-80"
           >
-            {isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+            {isFullscreen ? <ArrowsInIcon className="h-5 w-5" /> : <ArrowsOutIcon className="h-5 w-5" />}
           </button>
         </div>
       </div>

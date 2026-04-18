@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
 import { APP_NAME, ROUTES } from "@/lib/constants";
 
 export function MobileHeader() {
@@ -13,7 +13,7 @@ export function MobileHeader() {
         aria-label="Search"
         className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-border/60 text-muted-foreground"
       >
-        <Search className="h-4 w-4" />
+        <MagnifyingGlassIcon className="h-4 w-4" />
       </Link>
     </header>
   );

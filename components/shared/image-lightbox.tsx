@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { CaretLeftIcon, CaretRightIcon, XIcon } from "@phosphor-icons/react";
 import type { Image as TmdbImageType } from "@/lib/tmdb/types";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 
@@ -54,7 +54,7 @@ export function ImageLightbox({ images, index, onClose, onIndexChange }: Props) 
         aria-label="Close"
         className="absolute right-6 top-6 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border/60 text-foreground hover:border-border"
       >
-        <X className="h-4 w-4" />
+        <XIcon className="h-4 w-4" />
       </button>
 
       {hasPrev ? (
@@ -67,7 +67,7 @@ export function ImageLightbox({ images, index, onClose, onIndexChange }: Props) 
           aria-label="Previous"
           className="absolute left-6 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 text-foreground hover:border-border"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <CaretLeftIcon className="h-5 w-5" />
         </button>
       ) : null}
 
@@ -81,7 +81,7 @@ export function ImageLightbox({ images, index, onClose, onIndexChange }: Props) 
           aria-label="Next"
           className="absolute right-6 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 text-foreground hover:border-border"
         >
-          <ChevronRight className="h-5 w-5" />
+          <CaretRightIcon className="h-5 w-5" />
         </button>
       ) : null}
 

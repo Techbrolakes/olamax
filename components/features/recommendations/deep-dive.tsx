@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Loader2 } from "lucide-react";
+import { BookOpenIcon, CircleNotchIcon } from "@phosphor-icons/react";
 import { MarkdownMessage } from "@/components/features/concierge/markdown-message";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +59,7 @@ export function DeepDive({ movieId }: { movieId: number }) {
             onClick={load}
             className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_6px_20px_-4px_hsl(var(--primary)/0.7)] transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            <BookOpen className="h-4 w-4" />
+            <BookOpenIcon className="h-4 w-4" />
             Read the deep dive
           </button>
         </div>
@@ -73,7 +73,7 @@ export function DeepDive({ movieId }: { movieId: number }) {
         <p className="meta-label text-primary">Deep dive</p>
         {(status === "loading" || status === "streaming") && (
           <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="h-3 w-3 animate-spin" />
+            <CircleNotchIcon className="h-3 w-3 animate-spin" />
             {status === "loading" ? "Generating" : "Writing"}
           </span>
         )}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Play } from "lucide-react";
+import { PlayIcon } from "@phosphor-icons/react/ssr";
 import { listFreeToWatch } from "@/lib/public-domain";
 import { movies as moviesApi } from "@/lib/tmdb";
 import { TmdbImage } from "@/components/shared/tmdb-image";
@@ -48,7 +48,7 @@ export async function FreeToWatchRail() {
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-1 rounded-sm bg-primary/90 px-1.5 py-0.5 font-mono text-[10px] text-primary-foreground">
-                <Play className="h-2.5 w-2.5 fill-current" />
+                <PlayIcon className="h-2.5 w-2.5" weight="fill" />
                 FREE
               </span>
             </div>

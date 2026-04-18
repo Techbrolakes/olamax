@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Play } from "lucide-react";
+import { PlayIcon } from "@phosphor-icons/react/ssr";
 import { listFreeToWatch } from "@/lib/public-domain";
 import { movies as moviesApi } from "@/lib/tmdb";
 import { TmdbImage } from "@/components/shared/tmdb-image";
@@ -52,11 +52,11 @@ export default async function WatchIndexPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <div className="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground">
-                  <Play className="h-5 w-5 fill-current" />
+                  <PlayIcon className="h-5 w-5" weight="fill" />
                 </span>
               </div>
               <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-sm bg-primary/90 px-1.5 py-0.5 font-mono text-[10px] text-primary-foreground">
-                <Play className="h-2.5 w-2.5 fill-current" /> FREE
+                <PlayIcon className="h-2.5 w-2.5" weight="fill" /> FREE
               </span>
             </div>
             <div className="mt-3 space-y-1">

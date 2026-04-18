@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import { tv as tvApi } from "@/lib/tmdb";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import { SeasonStrip } from "@/components/shared/season-strip";
@@ -131,7 +131,7 @@ export default async function TvDetailPage({ params }: { params: Promise<Params>
                   rel="noreferrer"
                   className="meta-label inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-4 py-2.5 text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
                 >
-                  Official site <ArrowUpRight className="h-3.5 w-3.5" />
+                  Official site <ArrowUpRightIcon className="h-3.5 w-3.5" />
                 </a>
               ) : null}
             </div>

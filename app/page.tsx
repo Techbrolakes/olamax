@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRightIcon, PlayIcon } from "@phosphor-icons/react/ssr";
 import { movies as moviesApi, tv as tvApi } from "@/lib/tmdb";
 import type { Genre, Movie, Paginated, TvShow } from "@/lib/tmdb/types";
 import { MovieRail } from "@/components/shared/movie-rail";
@@ -75,14 +75,14 @@ export default async function HomePage() {
                 href={ROUTES.movies.detail(hero.id)}
                 className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:opacity-90"
               >
-                <Play className="h-4 w-4 fill-background" />
+                <PlayIcon className="h-4 w-4" weight="fill" />
                 Details
               </Link>
               <Link
                 href={ROUTES.movies.trending}
                 className="meta-label inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-5 py-2.5 hover:border-border hover:text-foreground"
               >
-                More like this <ArrowUpRight className="h-3.5 w-3.5" />
+                More like this <ArrowUpRightIcon className="h-3.5 w-3.5" />
               </Link>
             </div>
           </div>

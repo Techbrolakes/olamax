@@ -1,6 +1,6 @@
 "use client";
 
-import { Bookmark, BookmarkCheck, Loader2 } from "lucide-react";
+import { BookmarkSimpleIcon, CircleNotchIcon } from "@phosphor-icons/react";
 import { useSession } from "@/lib/auth/client";
 import { useIsOnWatchlist, useToggleWatchlist } from "./use-watchlist";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export function WatchlistToggle({ movieId }: { movieId: number }) {
         href={ROUTES.auth.signIn}
         className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 px-5 py-2.5 text-sm transition-colors hover:border-border hover:text-foreground"
       >
-        <Bookmark className="h-4 w-4" />
+        <BookmarkSimpleIcon className="h-4 w-4" />
         Sign in to save
       </Link>
     );
@@ -44,11 +44,12 @@ export function WatchlistToggle({ movieId }: { movieId: number }) {
       )}
     >
       {toggle.isPending ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
-      ) : isOn ? (
-        <BookmarkCheck className="h-4 w-4" />
+        <CircleNotchIcon className="h-4 w-4 animate-spin" />
       ) : (
-        <Bookmark className="h-4 w-4" />
+        <BookmarkSimpleIcon
+          className={cn("h-4 w-4", isOn && "text-primary")}
+          weight={isOn ? "fill" : "regular"}
+        />
       )}
       {isOn ? "On your list" : "Add to watchlist"}
     </button>

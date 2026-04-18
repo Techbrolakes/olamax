@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Dices, RefreshCw, X } from "lucide-react";
+import { ArrowClockwiseIcon, ShuffleIcon, XIcon } from "@phosphor-icons/react";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import type { Movie } from "@/lib/tmdb/types";
 import { ROUTES } from "@/lib/constants";
@@ -70,12 +70,12 @@ export function PickForMe() {
         >
           {hasPicks ? (
             <>
-              <RefreshCw className={cn("h-3 w-3", loading && "animate-spin")} />
+              <ArrowClockwiseIcon className={cn("h-3 w-3", loading && "animate-spin")} />
               {loading ? "Shuffling" : "Shuffle"}
             </>
           ) : (
             <>
-              <Dices className={cn("h-3 w-3", loading && "animate-spin")} />
+              <ShuffleIcon className={cn("h-3 w-3", loading && "animate-spin")} />
               {loading ? "Picking" : "Pick for me"}
             </>
           )}
@@ -98,7 +98,7 @@ export function PickForMe() {
               aria-label="Dismiss picks"
               className="meta-label inline-flex cursor-pointer items-center gap-1 rounded-full border border-border/60 px-2.5 py-1 text-muted-foreground transition-colors hover:border-border hover:text-foreground"
             >
-              <X className="h-3 w-3" />
+              <XIcon className="h-3 w-3" />
               <span>Close</span>
             </button>
           </div>

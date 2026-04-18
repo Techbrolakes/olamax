@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Globe } from "lucide-react";
+import { GlobeIcon } from "@phosphor-icons/react";
 
 const REGIONS = [
   { code: "US", label: "United States" },
@@ -48,7 +48,7 @@ export function RegionPicker({
 
   return (
     <label className="relative inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground">
-      <Globe className="h-3.5 w-3.5" />
+      <GlobeIcon className="h-3.5 w-3.5" />
       <span className="font-mono uppercase tracking-[0.18em]">{region}</span>
       <select
         value={region}

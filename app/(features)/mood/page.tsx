@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import { PageHeader } from "@/components/shared/page-header";
 import { MOODS } from "@/lib/ai/moods";
 import { ROUTES } from "@/lib/constants";
@@ -35,7 +35,7 @@ export default function MoodIndexPage() {
             </div>
             <div className="pt-4">
               <span className="meta-label inline-flex items-center gap-1.5 text-muted-foreground transition-colors group-hover:text-foreground">
-                Explore <ArrowUpRight className="h-3 w-3" />
+                Explore <ArrowUpRightIcon className="h-3 w-3" />
               </span>
             </div>
           </Link>

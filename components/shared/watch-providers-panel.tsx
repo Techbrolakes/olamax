@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { TmdbImage } from "@/components/shared/tmdb-image";
 import type { WatchProvider, WatchProvidersByRegion, WatchProvidersResponse } from "@/lib/tmdb/types";
 import { getStoredRegion, RegionPicker } from "./region-picker";
@@ -66,7 +66,7 @@ export function WatchProvidersPanel({ movieId, initial, defaultRegion }: Props) 
             rel="noreferrer"
             className="meta-label inline-flex cursor-pointer items-center gap-1.5 hover:text-foreground"
           >
-            Open on TMDB <ArrowUpRight className="h-3.5 w-3.5" />
+            Open on TMDB <ArrowUpRightIcon className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>

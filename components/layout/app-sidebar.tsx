@@ -3,18 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  ArrowUpRight,
-  Bookmark,
-  Clapperboard,
-  Film,
-  Home,
-  Palette,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Sparkles,
-  Tv,
-  Users,
-} from "lucide-react";
+  ArrowUpRightIcon,
+  BookmarkIcon,
+  FilmSlateIcon,
+  FilmStripIcon,
+  HouseIcon,
+  PaletteIcon,
+  SidebarSimpleIcon,
+  SparkleIcon,
+  TelevisionIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 import { APP_NAME, ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { SidebarUser } from "./sidebar-user";
@@ -24,25 +23,34 @@ import { SidebarSearch } from "./sidebar-search";
 const STORAGE_KEY = "olamax.sidebar";
 
 const PRIMARY = [
-  { label: "Home", href: ROUTES.home, icon: Home },
-  { label: "Movies", href: ROUTES.movies.index, icon: Clapperboard },
-  { label: "TV", href: ROUTES.tv.index, icon: Tv },
-  { label: "Actors", href: ROUTES.actors.index, icon: Users },
-  { label: "Moods", href: ROUTES.moods.index, icon: Palette },
+  { label: "Home", href: ROUTES.home, icon: HouseIcon },
+  { label: "Movies", href: ROUTES.movies.index, icon: FilmSlateIcon },
+  { label: "TV", href: ROUTES.tv.index, icon: TelevisionIcon },
+  { label: "Actors", href: ROUTES.actors.index, icon: UsersIcon },
+  { label: "Moods", href: ROUTES.moods.index, icon: PaletteIcon },
 ] as const;
 
 const PERSONAL = [
-  { label: "Watchlist", href: ROUTES.watchlist, icon: Bookmark },
-  { label: "Reviews", href: ROUTES.reviews, icon: Film },
+  { label: "Watchlist", href: ROUTES.watchlist, icon: BookmarkIcon },
+  { label: "Reviews", href: ROUTES.reviews, icon: FilmStripIcon },
 ] as const;
 
 export function AppSidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof document === "undefined") return false;
+    const fromDom = document.documentElement.dataset.sidebarState;
+    if (fromDom) return fromDom === "collapsed";
+    try {
+      return localStorage.getItem(STORAGE_KEY) === "collapsed";
+    } catch {
+      return false;
+    }
+  });
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    setCollapsed(saved === "collapsed");
-  }, []);
+    const state = collapsed ? "collapsed" : "expanded";
+    document.documentElement.setAttribute("data-sidebar-state", state);
+  }, [collapsed]);
 
   function toggle() {
     const next = !collapsed;
@@ -111,11 +119,10 @@ export function AppSidebar() {
           )}
         >
           <span className="flex h-5 w-5 flex-none items-center justify-center">
-            {collapsed ? (
-              <PanelLeftOpen className="h-5 w-5" />
-            ) : (
-              <PanelLeftClose className="h-5 w-5" />
-            )}
+            <SidebarSimpleIcon
+              className="h-5 w-5"
+              weight={collapsed ? "duotone" : "fill"}
+            />
           </span>
           <span className="sidebar-label">Collapse</span>
         </button>
@@ -140,9 +147,9 @@ function SidebarAskAi() {
           className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent"
         />
         <span className="relative grid h-7 w-7 flex-none place-items-center rounded-md bg-background/70 ring-1 ring-inset ring-border/60">
-          <Sparkles
+          <SparkleIcon
             className="h-[13px] w-[13px] text-foreground transition-transform duration-300 group-hover/ai:-rotate-6 group-hover/ai:scale-110"
-            strokeWidth={2}
+            weight="fill"
           />
         </span>
         <span className="sidebar-label flex min-w-0 flex-1 flex-col leading-tight">
@@ -151,10 +158,7 @@ function SidebarAskAi() {
             Describe a vibe…
           </span>
         </span>
-        <ArrowUpRight
-          className="sidebar-label h-4 w-4 flex-none text-muted-foreground transition-all duration-300 group-hover/ai:translate-x-0.5 group-hover/ai:-translate-y-0.5 group-hover/ai:text-foreground"
-          strokeWidth={1.75}
-        />
+        <ArrowUpRightIcon className="sidebar-label h-4 w-4 flex-none text-muted-foreground transition-all duration-300 group-hover/ai:translate-x-0.5 group-hover/ai:-translate-y-0.5 group-hover/ai:text-foreground" />
       </Link>
     </div>
   );

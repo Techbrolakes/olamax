@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Camera, Loader2 } from "lucide-react";
+import { CameraIcon, CircleNotchIcon } from "@phosphor-icons/react";
 import { useUpdateAvatar } from "./use-profile";
 import { cn } from "@/lib/utils";
 
@@ -54,10 +54,10 @@ export function AvatarUploader({ initialUrl, fallback }: Props) {
         )}
         <div className="absolute inset-0 grid place-items-center bg-background/60 opacity-0 transition-opacity group-hover:opacity-100">
           {update.isPending ? (
-            <Loader2 className="h-6 w-6 animate-spin text-foreground" />
+            <CircleNotchIcon className="h-6 w-6 animate-spin text-foreground" />
           ) : (
             <div className="flex flex-col items-center gap-2 text-foreground">
-              <Camera className="h-6 w-6" />
+              <CameraIcon className="h-6 w-6" />
               <span className="meta-label">Change</span>
             </div>
           )}

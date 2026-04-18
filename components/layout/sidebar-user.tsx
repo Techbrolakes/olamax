@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogIn, LogOut } from "lucide-react";
+import { SignInIcon, SignOutIcon } from "@phosphor-icons/react";
 import { useSession, signOut } from "@/lib/auth/client";
 import { ROUTES } from "@/lib/constants";
 
@@ -20,7 +20,7 @@ export function SidebarUser() {
           href={ROUTES.auth.signIn}
           className="flex cursor-pointer items-center gap-3 overflow-hidden rounded-md px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
         >
-          <LogIn className="h-5 w-5 flex-none" />
+          <SignInIcon className="h-5 w-5 flex-none" />
           <span className="sidebar-label">Sign in</span>
         </Link>
       </div>
@@ -51,7 +51,7 @@ export function SidebarUser() {
         aria-label="Sign out"
         className="sidebar-only-expanded flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
       >
-        <LogOut className="h-[18px] w-[18px]" />
+        <SignOutIcon className="h-[18px] w-[18px]" />
       </button>
     </div>
   );

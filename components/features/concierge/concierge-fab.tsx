@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Wand2 } from "lucide-react";
+import { MagicWandIcon } from "@phosphor-icons/react";
 import { ROUTES } from "@/lib/constants";
 
 export function ConciergeFab() {
@@ -53,9 +53,9 @@ export function ConciergeFab() {
 
         {/* icon chip */}
         <span className="relative grid h-8 w-8 flex-none place-items-center rounded-full bg-primary shadow-[0_0_18px_-2px_hsl(var(--primary)/0.8),inset_0_1px_0_rgba(255,255,255,0.25),inset_0_-1px_0_rgba(0,0,0,0.25)]">
-          <Wand2
+          <MagicWandIcon
             className="h-[14px] w-[14px] text-primary-foreground drop-shadow-[0_0_4px_rgba(255,255,255,0.45)] transition-transform duration-500 group-hover:-rotate-12"
-            strokeWidth={2.5}
+            weight="fill"
           />
           <span
             aria-hidden

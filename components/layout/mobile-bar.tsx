@@ -2,23 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, Home, Search, Users, Wand2 } from "lucide-react";
+import {
+  BookmarkIcon,
+  HouseIcon,
+  MagicWandIcon,
+  MagnifyingGlassIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 type Item = {
   href: string;
-  icon: typeof Home;
+  icon: typeof HouseIcon;
   label: string;
   featured?: boolean;
 };
 
 const ITEMS: Item[] = [
-  { href: ROUTES.home, icon: Home, label: "Home" },
-  { href: ROUTES.search, icon: Search, label: "Search" },
-  { href: ROUTES.concierge, icon: Wand2, label: "AI", featured: true },
-  { href: ROUTES.actors.index, icon: Users, label: "Actors" },
-  { href: ROUTES.watchlist, icon: Bookmark, label: "Watchlist" },
+  { href: ROUTES.home, icon: HouseIcon, label: "Home" },
+  { href: ROUTES.search, icon: MagnifyingGlassIcon, label: "Search" },
+  { href: ROUTES.concierge, icon: MagicWandIcon, label: "AI", featured: true },
+  { href: ROUTES.actors.index, icon: UsersIcon, label: "Actors" },
+  { href: ROUTES.watchlist, icon: BookmarkIcon, label: "Watchlist" },
 ];
 
 const CONTAINER_HEIGHT = 84; // 56 (bar) + 28 (bulge)
@@ -98,7 +104,7 @@ export function MobileBar() {
                   >
                     <Icon
                       className="h-[18px] w-[18px]"
-                      strokeWidth={active ? 2.25 : 1.75}
+                      weight={active ? "fill" : "duotone"}
                     />
                     <span className="font-sans text-[10px] font-medium leading-none tracking-tight">
                       {item.label}
@@ -131,7 +137,7 @@ export function MobileBar() {
               aria-hidden
               className="pointer-events-none absolute inset-[1px] rounded-full ring-1 ring-inset ring-white/15"
             />
-            <Wand2 className="relative h-[19px] w-[19px]" strokeWidth={2.25} />
+            <MagicWandIcon className="relative h-[19px] w-[19px]" weight="fill" />
           </Link>
         )}
       </div>

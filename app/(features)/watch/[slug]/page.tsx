@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import { getFreeToWatchBySlug } from "@/lib/public-domain";
 import { movies as moviesApi } from "@/lib/tmdb";
 import { backdropUrl } from "@/lib/tmdb/images";
@@ -85,13 +85,13 @@ export default async function WatchPage({ params }: { params: Promise<Params> })
               rel="noreferrer"
               className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-foreground hover:underline"
             >
-              Internet Archive <ArrowUpRight className="h-3.5 w-3.5" />
+              Internet Archive <ArrowUpRightIcon className="h-3.5 w-3.5" />
             </a>
             <Link
               href={ROUTES.movies.detail(film.tmdbId)}
               className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-foreground hover:underline"
             >
-              View on OlaMax <ArrowUpRight className="h-3.5 w-3.5" />
+              View on OlaMax <ArrowUpRightIcon className="h-3.5 w-3.5" />
             </Link>
           </aside>
         </div>

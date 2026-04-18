@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["@phosphor-icons/react"],
   },
 };
 

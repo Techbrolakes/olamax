@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { StarIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -30,11 +30,9 @@ export function RatingStars({ value, onChange, max = 10, readOnly = false, size 
             )}
             aria-label={`Rate ${i + 1} out of ${max}`}
           >
-            <Star
-              className={cn(
-                sizeClass,
-                filled ? "fill-primary text-primary" : "fill-none text-muted-foreground/40"
-              )}
+            <StarIcon
+              className={cn(sizeClass, filled ? "text-primary" : "text-muted-foreground/40")}
+              weight={filled ? "fill" : "regular"}
             />
           </button>
         );

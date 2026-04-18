@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constants";
@@ -13,7 +13,6 @@ export function SidebarSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [isMac, setIsMac] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setIsMac(/Mac|iPhone|iPad/.test(navigator.userAgent));
@@ -72,7 +71,7 @@ export function SidebarSearch() {
         )}
       >
         <span className="flex h-5 w-5 flex-none items-center justify-center">
-          <Search className="h-5 w-5" />
+          <MagnifyingGlassIcon className="h-5 w-5" />
         </span>
         <span className="sidebar-label flex flex-1 items-center justify-between">
           <span>Search</span>
@@ -84,13 +83,12 @@ export function SidebarSearch() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
-          className="top-[20%] translate-y-0 gap-0 p-0 sm:max-w-lg [&>[data-slot=dialog-close]]:hidden"
+          className="top-[20%] translate-y-0 gap-0 p-0 sm:max-w-lg [&>[data-slot=dialog-close-icon]]:hidden"
         >
           <DialogTitle className="sr-only">Search</DialogTitle>
           <form onSubmit={onSubmit} className="flex items-center gap-3 px-4 py-3">
-            <Search className="h-4 w-4 flex-none text-muted-foreground" aria-hidden />
+            <MagnifyingGlassIcon className="h-4 w-4 flex-none text-muted-foreground" aria-hidden />
             <Input
-              ref={inputRef}
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}

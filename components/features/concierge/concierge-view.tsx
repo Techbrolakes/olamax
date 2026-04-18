@@ -11,7 +11,7 @@ import {
   type ToolUIPart,
   type UITools,
 } from "ai";
-import { RotateCcw, Send } from "lucide-react";
+import { ArrowCounterClockwiseIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
 import type { FilmConciergeUIMessage } from "@/lib/ai/concierge-agent";
 import { MovieResultCard, type MovieResult } from "./movie-result-card";
 import { MarkdownMessage } from "./markdown-message";
@@ -135,7 +135,7 @@ export function ConciergeView() {
               className="meta-label mt-1 inline-flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-border/60 px-2.5 text-muted-foreground transition-colors hover:border-border hover:text-foreground md:h-auto md:px-3 md:py-1.5"
               aria-label="Start a new chat"
             >
-              <RotateCcw className="h-3.5 w-3.5 md:h-3 md:w-3" />
+              <ArrowCounterClockwiseIcon className="h-3.5 w-3.5 md:h-3 md:w-3" />
               <span className="hidden sm:inline">New chat</span>
             </button>
           )}
@@ -204,7 +204,7 @@ export function ConciergeView() {
               aria-label="Send"
               className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-primary text-primary-foreground transition-opacity hover:opacity-90 active:opacity-80 disabled:cursor-not-allowed disabled:opacity-40 md:h-9 md:w-9"
             >
-              <Send className="h-4 w-4" />
+              <PaperPlaneRightIcon className="h-4 w-4" />
             </button>
           </form>
         </div>

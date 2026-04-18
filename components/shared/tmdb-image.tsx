@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useState, type CSSProperties } from "react";
-import { Building2, Clapperboard, Film, ImageOff, User } from "lucide-react";
+import {
+  BuildingsIcon,
+  FilmSlateIcon,
+  FilmStripIcon,
+  ImageBrokenIcon,
+  UserIcon,
+} from "@phosphor-icons/react";
 import {
   BACKDROP_SIZES,
   LOGO_SIZES,
@@ -160,7 +166,7 @@ function FallbackContent({ kind, label }: { kind: TmdbImageKind; label: string }
     case "poster":
       return (
         <div className="flex flex-col items-center gap-3 px-3 py-4 text-center">
-          <Film className="h-7 w-7 opacity-70" />
+          <FilmStripIcon className="h-7 w-7 opacity-70" />
           {label ? (
             <p className="line-clamp-2 font-serif text-[12px] italic leading-snug text-muted-foreground">
               {label}
@@ -171,7 +177,7 @@ function FallbackContent({ kind, label }: { kind: TmdbImageKind; label: string }
     case "profile":
       return (
         <div className="flex flex-col items-center gap-2.5 px-3 py-4 text-center">
-          <User className="h-8 w-8 opacity-70" />
+          <UserIcon className="h-8 w-8 opacity-70" />
           {label ? (
             <p className="line-clamp-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               {label}
@@ -180,11 +186,11 @@ function FallbackContent({ kind, label }: { kind: TmdbImageKind; label: string }
         </div>
       );
     case "backdrop":
-      return <ImageOff className="h-10 w-10 opacity-40" />;
+      return <ImageBrokenIcon className="h-10 w-10 opacity-40" />;
     case "still":
       return (
         <div className="flex flex-col items-center gap-1.5 px-2 py-3 text-center">
-          <Clapperboard className="h-5 w-5 opacity-70" />
+          <FilmSlateIcon className="h-5 w-5 opacity-70" />
           {label ? (
             <p className="line-clamp-1 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
               {label}
@@ -193,6 +199,6 @@ function FallbackContent({ kind, label }: { kind: TmdbImageKind; label: string }
         </div>
       );
     case "logo":
-      return <Building2 className="h-4 w-4 opacity-60" />;
+      return <BuildingsIcon className="h-4 w-4 opacity-60" />;
   }
 }

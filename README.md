@@ -24,7 +24,7 @@ Describe a vibe and let the AI find your next film. OlaMax mixes a restrained, e
 - **Storage** · Vercel Blob (avatars)
 - **Server state** · TanStack Query v5
 - **Client state** · Zustand (feature-scoped)
-- **UI** · shadcn/ui (`new-york`, neutral), Radix primitives, `lucide-react`, `react-markdown` + `remark-gfm`
+- **UI** · shadcn/ui (`new-york`, neutral), Radix primitives, `@phosphor-icons/react`, `react-markdown` + `remark-gfm`
 - **Type** · Instrument Serif (display) · Geist (body) · Geist Mono (metadata)
 
 Third-party movie data courtesy of [TMDB](https://www.themoviedb.org).

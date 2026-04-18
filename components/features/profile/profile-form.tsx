@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
 import { profileSchema, type ProfileValues } from "./schemas";
 import { useUpdateProfile } from "./use-profile";
@@ -73,7 +73,7 @@ export function ProfileForm({ initial, email }: Props) {
         disabled={update.isPending}
         className="meta-label inline-flex cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-background transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {update.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        {update.isPending ? <CircleNotchIcon className="h-4 w-4 animate-spin" /> : null}
         Save changes
       </button>
     </form>

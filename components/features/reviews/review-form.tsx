@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 import { RatingStars } from "@/components/shared/rating-stars";
 import { useUpsertReview, type Review } from "./use-reviews";
 
@@ -64,7 +64,7 @@ export function ReviewForm({ movieId, initial, onDone }: Props) {
           disabled={upsert.isPending}
           className="meta-label inline-flex cursor-pointer items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-background transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          {upsert.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+          {upsert.isPending ? <CircleNotchIcon className="h-4 w-4 animate-spin" /> : null}
           {initial ? "Update review" : "Publish review"}
         </button>
       </div>

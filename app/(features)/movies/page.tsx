@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Play } from "lucide-react";
+import { PlayIcon } from "@phosphor-icons/react/ssr";
 import { movies as moviesApi } from "@/lib/tmdb";
 import { MovieGrid } from "@/components/shared/movie-grid";
 import { PageHeader } from "@/components/shared/page-header";
@@ -91,7 +91,7 @@ export default async function MoviesPage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-sm bg-primary/90 px-1.5 py-0.5 font-mono text-[10px] text-primary-foreground">
-                  <Play className="h-2.5 w-2.5 fill-current" /> FREE
+                  <PlayIcon className="h-2.5 w-2.5" weight="fill" /> FREE
                 </span>
               </div>
               <div className="mt-3 space-y-1">

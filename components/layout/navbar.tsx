@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
 import { APP_NAME, ROUTES } from "@/lib/constants";
 import { NavUser } from "./nav-user";
 
@@ -40,7 +40,7 @@ export function Navbar() {
             aria-label="Search"
             className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:border-border hover:text-foreground"
           >
-            <Search className="h-4 w-4" />
+            <MagnifyingGlassIcon className="h-4 w-4" />
           </Link>
           <NavUser />
         </div>

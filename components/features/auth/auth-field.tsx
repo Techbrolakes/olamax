@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -40,7 +40,7 @@ export const AuthField = forwardRef<HTMLInputElement, Props>(function AuthField(
             aria-label={revealed ? "Hide password" : "Show password"}
             className="absolute right-2 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm text-muted-foreground hover:text-foreground"
           >
-            {revealed ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            {revealed ? <EyeSlashIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
           </button>
         ) : null}
       </div>

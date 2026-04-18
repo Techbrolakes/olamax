@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { SignOutIcon } from "@phosphor-icons/react";
 import { signOut } from "@/lib/auth/client";
 import { PageHeader } from "@/components/shared/page-header";
 import { AvatarUploader } from "@/components/features/profile/avatar-uploader";
@@ -36,7 +36,7 @@ export function AccountView({ user, profile, fallback }: Props) {
               onClick={() => signOut()}
               className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-border/60 px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:border-border hover:text-foreground"
             >
-              <LogOut className="h-4 w-4" />
+              <SignOutIcon className="h-4 w-4" />
               Sign out
             </button>
           </div>

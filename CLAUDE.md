@@ -10,7 +10,7 @@ Editorial film-discovery app. Next.js 15 App Router + React 19 + TS strict.
 - **TMDB**: Server-only client in `lib/tmdb/`. `TMDB_API_KEY` never leaks to the client; client components go through `app/api/*` proxies.
 - **Data fetching**: TanStack Query v5 (client) + RSC fetch (server).
 - **Client state**: Zustand, feature-scoped.
-- **UI**: shadcn/ui (new-york, neutral, CSS vars), Radix primitives, `lucide-react` (no `Icon` suffix).
+- **UI**: shadcn/ui (new-york, neutral, CSS vars), Radix primitives, `@phosphor-icons/react` (with `Icon` suffix, default `weight="duotone"`).
 
 ## Typography
 
@@ -45,7 +45,7 @@ drizzle/                  migrations
 - **No feature-to-feature imports**. Share via `components/shared/` or `lib/`.
 - **Every interactive element gets `cursor-pointer`**.
 - Always `next/image`, never `<img>`.
-- Lucide icons without `Icon` suffix: `import { X, Check } from "lucide-react"`.
+- Phosphor icons with `Icon` suffix: `import { HouseIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"`. Global default is `weight="duotone"` (set via `IconContext` in `providers.tsx`); override per-use with `"regular" | "bold" | "fill" | "light" | "thin"`.
 - `cn()` for every conditional class.
 - Register routes in `lib/constants.ts` → `ROUTES` before linking.
 - Forms: RHF + zodResolver + shadcn `<Form>`. Surface async errors via `form.setError("root", …)`.
