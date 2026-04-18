@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+out
+dist
+coverage
+drizzle
+public/fonts
+pnpm-lock.yaml
+package-lock.json

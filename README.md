@@ -1,112 +1,68 @@
-# 🎬 OlaMax
+# OlaMax
 
-A Netflix-inspired movie streaming application built with Next.js 14, Tailwind CSS, React Query, and Supabase.
+An editorial take on film discovery — browse TMDB, collect a watchlist, keep a
+private notebook of reviews. Built with Next.js 15, React 19, and Tailwind v4.
 
-## 🚀 Features
+## Stack
 
-- **Netflix-inspired UI**: Dark theme with a modern, clean interface
-- **Movie browsing**: Explore trending, popular, top-rated, and upcoming movies
-- **Movie details**: View comprehensive information about movies, including synopsis, cast, and similar movies
-- **Actor profiles**: Explore detailed information about actors and their filmography
-- **Search functionality**: Search for movies and actors throughout the application
-- **Authentication**: User login and registration powered by Supabase
-- **Responsive design**: Fully responsive on all device sizes
+- **Framework** · Next.js 15 (App Router, Turbopack), React 19, TypeScript strict
+- **Auth** · [Neon Auth](https://neon.com/docs/neon-auth/overview) via `@neondatabase/auth` (Better-Auth-backed)
+- **Database** · Neon Postgres + Drizzle ORM
+- **Storage** · Vercel Blob (avatars)
+- **Server state** · TanStack Query v5
+- **Client state** · Zustand (feature-scoped)
+- **UI** · shadcn/ui (`new-york`, neutral), Radix primitives, `lucide-react`
+- **Type** · Instrument Serif (display) · Geist (body) · Geist Mono (metadata)
 
-## 🛠️ Tech Stack
+Third-party movie data courtesy of [TMDB](https://www.themoviedb.org).
 
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Data Fetching**: TanStack Query (React Query)
-- **Authentication & Backend**: Supabase
-- **Movie Data**: TMDB API
-
-## 🔧 Getting Started
-
-### Prerequisites
-
-- Node.js 18.x or higher
-- npm or yarn
-- TMDB API key
-- Supabase account and project
-
-### Setup
-
-1. Clone the repository
+## Getting started
 
 ```bash
-git clone https://github.com/yourusername/olamax.git
-cd olamax
+pnpm install
+cp env.example .env.local   # fill in values
+pnpm db:push                # apply schema to Neon
+pnpm dev                    # http://localhost:3010
 ```
 
-2. Install dependencies
+### Required env vars
 
-```bash
-npm install
-# or
-yarn install
-```
+| Var | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Neon pooled Postgres connection string |
+| `NEON_AUTH_BASE_URL` | Neon Auth endpoint from the Neon console → Auth |
+| `NEON_AUTH_COOKIE_SECRET` | 32+ char random string for session cookies |
+| `TMDB_API_KEY` | TMDB v3 key (server-only) |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob token |
+| `NEXT_PUBLIC_APP_URL` | `http://localhost:3010` in dev |
 
-3. Set up environment variables
+## Scripts
 
-Create a `.env.local` file in the root directory with the following variables:
+- `pnpm dev` — Turbopack, port 3010
+- `pnpm build` / `pnpm start`
+- `pnpm lint` / `pnpm lint:fix`
+- `pnpm format` / `pnpm format:check`
+- `pnpm check-types` — `tsc --noEmit`
+- `pnpm db:generate` / `db:migrate` / `db:push` / `db:studio`
 
-```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Optional: If you'd prefer to keep the TMDB API key in the .env file instead of the code
-# NEXT_PUBLIC_TMDB_API_KEY=ae5b499166e31fb991742cee179dca6a
-```
-
-4. Run the development server
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application
-
-## 📝 Project Structure
+## Layout
 
 ```
-/app
-  ├── layout.tsx           # Root layout with global components
-  ├── page.tsx             # Homepage
-  ├── /components          # Reusable UI components
-  ├── /features            # Feature-specific components
-  ├── /hooks               # Custom React hooks
-  ├── /lib                 # Utilities, API services, types
-  ├── /store               # Zustand stores
-  ├── /styles              # Global styles
-  ├── /utils               # Helper functions
-  └── /pages               # Route pages
-      ├── /movies          # Movie-related routes
-      ├── /actors          # Actor-related routes
-      └── /auth            # Authentication routes
+app/
+  (auth)/        sign-in, sign-up, account (Neon Auth <AuthView />)
+  (features)/    movies, actors, genre, search, watchlist, reviews, profile
+  api/           auth catch-all, watchlist, reviews, profile, avatar, tmdb proxy
+components/
+  ui/            shadcn primitives
+  shared/        cross-feature pieces (movie-card, actor-card, rating-stars, …)
+  layout/        navbar, footer, nav-user
+  features/      auth, watchlist, reviews, profile, search
+  providers/     providers.tsx (QueryClient)
+lib/
+  auth/          server.ts, client.ts
+  db/            schema, queries, drizzle index
+  tmdb/          server-only TMDB client + types
+  blob.ts · query-client.ts · constants.ts · utils.ts
 ```
 
-## 🔄 API Integration
-
-This project uses two primary external APIs:
-
-1. **TMDB API**: For fetching movie and actor data
-   - API key is included in the code (for demonstration purposes)
-   - Documentation: [TMDB API Docs](https://developers.themoviedb.org/3)
-
-2. **Supabase**: For user authentication and backend services
-   - Requires your own Supabase project configuration
-   - Documentation: [Supabase Docs](https://supabase.io/docs)
-
-## 🚀 Deployment
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## 📜 License
-
-This project is MIT licensed.
+House conventions live in `CLAUDE.md`.

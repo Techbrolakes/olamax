@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/embed-trending",
+      "schedule": "0 6 * * *"
+    }
+  ]
+}

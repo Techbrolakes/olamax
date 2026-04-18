@@ -1,58 +1,56 @@
-import { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { geistMono, geistSans, instrumentSerif } from "./fonts";
 import "./globals.css";
-import { satoshi } from "./fonts";
-import ClientLayout from "./client-layout";
+import { Providers } from "@/components/providers/providers";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { MobileHeader } from "@/components/layout/mobile-header";
+import { MobileBar } from "@/components/layout/mobile-bar";
+import { ConciergeFab } from "@/components/features/concierge/concierge-fab";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3010"),
   title: {
-    template: "%s | OlaMax",
-    default: "OlaMax - Discover Your Next Favorite Movie",
+    default: `${APP_NAME} — An editorial take on film discovery`,
+    template: `%s · ${APP_NAME}`,
   },
-  description:
-    "Explore movies, create watchlists, and share reviews on your favorite films.",
+  description: APP_DESCRIPTION,
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon-32x32.svg", sizes: "32x32", type: "image/svg+xml" },
       { url: "/favicon-16x16.svg", sizes: "16x16", type: "image/svg+xml" },
     ],
-    apple: [
-      {
-        url: "/icons/apple-touch-icon.svg",
-        sizes: "180x180",
-        type: "image/svg+xml",
-      },
-    ],
+    apple: [{ url: "/icons/apple-touch-icon.svg", sizes: "180x180", type: "image/svg+xml" }],
   },
   manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7C3AED",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+  ],
+  viewportFit: "cover",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${satoshi.variable} antialiased bg-background min-h-screen font-sans`}
-      >
-        <ClientLayout>{children}</ClientLayout>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} dark`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+        <Providers>
+          <AppSidebar />
+          <MobileHeader />
+          <main className="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0 md:pl-16">
+            {children}
+          </main>
+          <MobileBar />
+          <ConciergeFab />
+        </Providers>
       </body>
     </html>
   );
