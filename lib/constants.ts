@@ -1,6 +1,7 @@
 export const APP_NAME = "OlaMax";
+export const APP_TAGLINE = "Editorial film discovery with an AI concierge";
 export const APP_DESCRIPTION =
-  "An editorial take on film discovery — browse, collect, and review.";
+  "Describe a vibe and let the AI find your next film. OlaMax mixes an editorial browsing experience with an AI concierge that recommends from your taste, writes deep dives on any movie, and curates films by mood.";
 
 export const ROUTES = {
   home: "/",

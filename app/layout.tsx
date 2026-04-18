@@ -6,15 +6,56 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { MobileHeader } from "@/components/layout/mobile-header";
 import { MobileBar } from "@/components/layout/mobile-bar";
 import { ConciergeFab } from "@/components/features/concierge/concierge-fab";
-import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
+import { APP_DESCRIPTION, APP_NAME, APP_TAGLINE } from "@/lib/constants";
+
+const siteTitle = `${APP_NAME} — ${APP_TAGLINE}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3010"),
   title: {
-    default: `${APP_NAME} — An editorial take on film discovery`,
+    default: siteTitle,
     template: `%s · ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
+  authors: [{ name: "Olamilekan Daramola", url: "https://github.com/Techbrolakes" }],
+  creator: "Olamilekan Daramola",
+  keywords: [
+    "OlaMax",
+    "film discovery",
+    "AI movie recommendations",
+    "AI film concierge",
+    "movie app",
+    "TMDB",
+    "watchlist",
+    "personalised recommendations",
+    "mood-based movie search",
+    "Next.js",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: APP_NAME,
+    title: siteTitle,
+    description: APP_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: APP_DESCRIPTION,
+    creator: "@Techbrolakes",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
