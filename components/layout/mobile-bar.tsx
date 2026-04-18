@@ -48,8 +48,18 @@ const BAR_PATH = [
   "Z",
 ].join(" ");
 
+// Routes that take over the full mobile viewport — the bar would just eat
+// keyboard space or compete with the primary CTA. Hidden on these only on
+// mobile; desktop layout isn't affected because the bar is md:hidden anyway.
+const HIDE_ON_PATHS = [ROUTES.search, ROUTES.concierge] as const;
+
 export function MobileBar() {
   const pathname = usePathname() ?? "/";
+  const hidden = HIDE_ON_PATHS.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+  if (hidden) return null;
+
   const featuredItem = ITEMS.find((i) => i.featured);
   const featuredActive = featuredItem
     ? pathname === featuredItem.href || pathname.startsWith(`${featuredItem.href}/`)
@@ -59,7 +69,7 @@ export function MobileBar() {
     <nav
       aria-label="Primary"
       className="fixed inset-x-3 z-40 md:hidden"
-      style={{ bottom: "calc(0.25rem + env(safe-area-inset-bottom))" }}
+      style={{ bottom: "env(safe-area-inset-bottom)" }}
     >
       <div
         className="relative"
